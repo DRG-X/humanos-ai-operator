@@ -6,7 +6,7 @@ from operate.utils.operating_system import OperatingSystem
 import logging
 import os 
 from datetime import datetime
-
+import uuid
 
 def setup_logging():
     LOG_DIR = "log/runs"
@@ -31,18 +31,21 @@ def setup_logging():
     return log_file
 
 
-
+def generate_run_id() -> str:
+    ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    short_uid = uuid.uuid4().hex[:4]
+    return (f"{ts}_{short_uid}")
 
 
 def main():
     log_file = setup_logging()
     # 1. Get user objective
     objective = input("Enter objective for HumanOS: ").strip()
-
+    run_id = generate_run_id()
     if not objective:
         raise ValueError("Objective cannot be empty")
     # 2. Initialize core components
-    state = State(objective=objective)
+    state = State(objective=objective , run_id = run_id)
     operating_system = OperatingSystem()
     executor = Executor(operating_system)
 

@@ -83,10 +83,9 @@ def capture_and_optimize_screen(scale=0.5, quality=60):
 
     logger.info(f"Screenshot saved to {image_path}")
 
-    return image_bytes , image_path
+    return image_bytes 
     
 
-image_bytes = capture_and_optimize_screen()
-print
+image_bytes  = capture_and_optimize_screen()
 image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
